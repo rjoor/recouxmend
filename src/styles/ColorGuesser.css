@@ -1,0 +1,19 @@
+html {
+  background: rgb(1, 1, 55);
+}
+
+.colorContainer {
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  height: 500px !important;
+  border: none;
+}
+
+.buttonContainer {
+  margin-left: 42.5%;
+}
+
+.button {
+  margin-left: 2%;
+}
