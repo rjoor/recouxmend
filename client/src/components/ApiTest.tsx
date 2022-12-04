@@ -1,15 +1,24 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ApiTest = () => {
-  const [data, setData] = useState<{ message: string }>({ message: "" });
+  const [loginRequested, setLoginRequested] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api")
-      .then((res) => res.json())
-      .then((data) => setData({ message: data.message }));
-  }, []);
+    fetch("http://localhost:3001/login").then((res) => console.log(res));
+  }, [loginRequested]);
 
-  return <>{data.message === "" ? <h1>Loading...</h1> : <h1>Success</h1>}</>;
+  const loginRequestHandler = () => {
+    setLoginRequested(true);
+  };
+
+  return (
+    <>
+      <form action="http://localhost:8080/login" onSubmit={loginRequestHandler}>
+        <input type="submit" value="Login with Spotify" />
+      </form>
+      {console.log(loginRequested)}
+    </>
+  );
 };
 
 export default ApiTest;
