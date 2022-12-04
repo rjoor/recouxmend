@@ -1,5 +1,5 @@
-const client_id: string = '' 
-const client_secret: string = '' 
+const client_id: string = "";
+const client_secret: string = "";
 
 const authOptions = {
   url: "https://accounts.spotify.com/api/token",
