@@ -29,8 +29,7 @@ const generateRandomString = function (length) {
 
 var stateKey = 'spotify_auth_state';
 
-app.use(express.static(__dirname + '/public'))
-    .use(cors())
+app.use(cors())
     .use(cookieParser());
 
 app.get('/login', function (req, res) {
@@ -50,7 +49,7 @@ app.get('/login', function (req, res) {
         }));
 });
 
-app.get('/callback', function (req, res) {
+app.get('/callback*', function (req, res) {
 
     // your application requests refresh and access tokens
     // after checking the state parameter
@@ -74,12 +73,13 @@ app.get('/callback', function (req, res) {
                 grant_type: 'authorization_code'
             },
             headers: {
-                'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+                'Authorization': 'Basic ' + (Buffer.from(client_id + ':' + client_secret).toString('base64'))
             },
             json: true
         };
 
         request.post(authOptions, function (error, response, body) {
+            console.log("test");
             if (!error && response.statusCode === 200) {
 
                 var access_token = body.access_token,
@@ -135,6 +135,8 @@ app.get('/refresh_token', function (req, res) {
         }
     });
 });
+
+app.get('/me')
 
 // const authOptions = {
 //     method: 'POST',

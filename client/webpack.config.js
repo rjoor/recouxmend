@@ -49,6 +49,9 @@ module.exports = {
             "os": false,
             "path": false
         }
+    },
+    devServer: {
+        historyApiFallback: true
     }
 
 }

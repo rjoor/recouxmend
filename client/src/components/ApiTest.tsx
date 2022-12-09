@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ApiTest = () => {
   const [loginRequested, setLoginRequested] = useState<boolean>(false);
+  const [loginUrl, setLoginUrl] = useState<string>("");
 
   useEffect(() => {
-    fetch("http://localhost:3001/login").then((res) => console.log(res));
+    fetch("http://localhost:3001/login").then((res) => setLoginUrl(res.url));
   }, [loginRequested]);
 
   const loginRequestHandler = () => {
@@ -13,10 +15,9 @@ const ApiTest = () => {
 
   return (
     <>
-      <form action="http://localhost:8080/login" onSubmit={loginRequestHandler}>
-        <input type="submit" value="Login with Spotify" />
-      </form>
+      <a href={loginUrl}>Login to Spotify</a>
       {console.log(loginRequested)}
+      {console.log(loginUrl)}
     </>
   );
 };
