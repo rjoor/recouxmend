@@ -3,7 +3,7 @@ const PORT = process.env.port || 3001;
 const express = require('express');
 require('dotenv').config();
 const app = express();
-const scopes = ['user-read-private', 'user-read-email'];
+const scopes = ['user-read-private', 'user-read-email', 'user-top-read'];
 const SpotifyWebApi = require("spotify-web-api-node");
 
 const credentials = {
@@ -61,12 +61,22 @@ app.get('/refresh', () => {
 
 app.get('/me', (_, res) => {
     console.log("getting info about myself!")
-    spotifyApi.getUser('rjoor')
+    spotifyApi.getMe()
         .then((data) => {
             res.send(data);
         })
         .catch((err) => {
             console.log('Could not get user info :(')
+        })
+})
+
+app.get('/toptracks', (_, res) => {
+    spotifyApi.getMyTopTracks({ limit: 50 })
+        .then((data) => {
+            res.send(data.body.items)
+        })
+        .catch((err) => {
+            console.dir(err)
         })
 })
 
